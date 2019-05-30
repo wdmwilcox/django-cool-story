@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Album example · Bootstrap</title>
+    <title>Cool Story</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
 
@@ -36,19 +36,29 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand" href="">
+          <a class="navbar-brand" href="{% url 'home' %}">
           <img src="{% static 'p_logo.svg' %}" alt="" class="d-inline-block align-top" height="30" width="30">Cool Story</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
             <li class="nav-item active">
-              <a class="nav-link" href="">Sign Up<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="javascript:{document.getElementById('logout')}">Logout<span class="sr-only">(current)</span></a>
+              <form id="logout" class="" action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="" value="">
+              </form>
+            </li>
+            {% else %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'signup' %}">Sign Up<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="">Login<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'login' %}">Login<span class="sr-only">(current)</span></a>
             </li>
+            {% endif %}
           </ul>
         </div>
       </div>
